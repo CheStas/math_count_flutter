@@ -7,8 +7,8 @@ import 'expression.dart';
 class MainState with ChangeNotifier {
   List<Expression> field = List();
   Timer timer;
-  static const int period_start = 3000;
-  int period = 3000;
+  static const int period_start = 500;
+  int period = 500;
   int score = 0;
   int miss = 0;
   int answer;
@@ -71,6 +71,7 @@ class MainState with ChangeNotifier {
   }
 
   void updatePosition(timer) {
+    addExpression();
     for (var i = 0; i < field.length; i++) {
       field[i].updatePosition();
       if (field[i].positionY > FIELD_HEIGHT) {
@@ -78,7 +79,6 @@ class MainState with ChangeNotifier {
         ++miss;
       }
     }
-    addExpression();
     notifyListeners();
   }
 

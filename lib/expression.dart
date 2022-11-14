@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:uuid/uuid.dart';
 
 class Expression {
   num _answer;
@@ -7,8 +8,10 @@ class Expression {
   num _term2;
   num positionX;
   num positionY;
+  String key;
 
   Expression() {
+    key = Uuid().v1();
     _factor = getRandomFromList(operatorsList);
     List<int> randomItems = List();
     if (_factor == Operators.DIVIDE) {

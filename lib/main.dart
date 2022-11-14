@@ -50,16 +50,18 @@ class MainPage extends StatelessWidget {
                             title: Text('Count it'),
                             children: <Widget>[
                               IconButton(
-                                alignment: Alignment.centerLeft,
-                                icon: const Icon(Icons.play_circle_outline),
+                                alignment: Alignment.center,
+                                iconSize: 48.0,
+                                icon: const Icon(Icons.play_arrow_rounded ),
                                 tooltip: 'Start',
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
                               ),
                               IconButton(
-                                alignment: Alignment.centerLeft,
-                                icon: const Icon(Icons.play_circle_outline),
+                                alignment: Alignment.center,
+                                iconSize: 48.0,
+                                icon: const Icon(Icons.refresh_rounded ),
                                 tooltip: 'New Game',
                                 onPressed: () {
                                   data.clearAll();
@@ -108,7 +110,7 @@ class MainPage extends StatelessWidget {
                         Border(bottom: BorderSide(color: Colors.red, width: 5))
 //                    border: Border.all(color: Colors.red, width: 5)
                     ),
-                child: Stack(children: getExpressionListWidget(data.field))),
+                child: Stack(children: getExpressionListWidget(data.field, data.period))),
             Container(
                 child: Text(data.answer == null ? '' : data.answer.toString())),
             Column(
@@ -121,19 +123,21 @@ class MainPage extends StatelessWidget {
   }
 }
 
-Widget getExpressionWidget(Expression item) {
-  return Positioned(
+Widget getExpressionWidget(Expression item, int duration) {
+  return AnimatedPositioned(
 //    duration: Duration(seconds: 1),
+    key: Key(item.key),
+    duration: Duration(milliseconds: duration),
     top: item.positionY.toDouble(),
     left: item.positionX.toDouble(),
     child: Text(item.string, style: TextStyle(color: Colors.blueAccent)),
   );
 }
 
-List<Widget> getExpressionListWidget(List<Expression> items) {
+List<Widget> getExpressionListWidget(List<Expression> items, int duration) {
   List<Widget> list = List<Widget>();
   for (var i = 0; i < items.length; i++) {
-    list.add(getExpressionWidget(items[i]));
+    list.add(getExpressionWidget(items[i], duration));
   }
   return list;
 }
